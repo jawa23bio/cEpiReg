@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>cEpiReg: A Database for TF-gene-CRE regulations and their implications in Alzheimer's disease genetics - Revealing the hidden link</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #36016b;
+            --secondary-color: #ad026e;
+            --tertiary-color: #24293e;
+            --quaternary-color: #ffffff;
+        }
+        body {
+            font-family: 'Open Sans', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--quaternary-color);
+            color: var(--tertiary-color);
+        }
+        header {
+            background-color: var(--primary-color);
+            padding: 20px 0;
+            color: #fff;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+        }
+        .logo-container {
+            text-align: center;
+        }
+        .logo img {
+            max-width: 550px; /* Adjust the width as needed */
+            height: auto;
+            display: inline-block; /* Make the image a block element */
+            margin-bottom: 5px; /* Add some space between the image and "cEpiReg" */
+        }
+        .logo h2, .logo h3 {
+            font-family: 'Open Sans', sans-serif;
+            margin: 0;
+        }
+        .logo h2 {
+            font-size: 3.5rem; 
+            margin-top: -5px;
+            margin-bottom: -20px;
+        }
+        .logo h3 {
+            font-size: 1.5rem; 
+            margin-top: -20px; /* Adjust the negative margin to minimize the space between h2 and h3 */
+        }
+        nav {
+            margin-top: 20px;
+            text-align: right;
+        }
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: inline-block;
+        }
+        nav ul li {
+            display: inline-block;
+            margin-left: 20px;
+        }
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.2rem;
+        }
+        .content {
+            padding: 50px 0;
+            text-align: justify;
+        }
+        footer {
+            background-color: #36016b;
+            color: var(--quaternary-color);
+            padding: 20px 0;
+            text-align: center;
+        }
+        /* Style the menu items */
+        .menu__item {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.2rem;
+        }
+        .contact {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #d3d2f7;
+            border-radius: 5px;
+            text-align: center; /* Aligning the content to the center */
+        }
+        .contact h3 {
+            font-size: 1.5rem;
+            color: #333;
+        }
+        .contact hr {
+            border: none;
+            border-top: 1px solid rgba(0, 0, 0, 0.3); /* Semi-transparent horizontal line */
+            margin: 10px auto; /* Centering the line */
+            width: 50%; /* Adjust the width of the line */
+        }
+        .contact p {
+            font-size: 1rem;
+            color: #666;
+        }
+
+        /* Style for buttons */
+        button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            margin-right: 10px;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        button:hover {
+            background-color: var(--secondary-color); /* Corrected the hover color */
+        }
+
+        /* New style for header text */
+        .header-container {
+            text-align: center;
+        }
+        .header-title {
+            font-size: 3.5rem;
+            margin: 0;
+        }
+        .sub-header {
+            font-size: 1.5rem;
+            margin: 0;
+        }
+        .button-container {
+            text-align: center;
+        }
+        .dropdown {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #fff;
+            border: 1px solid #ddd;
+            padding: 10px;
+            display: none;
+        }
+
+        .dropdown li {
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .dropdown li a {
+            color: #333;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .dropdown li a:hover {
+            background-color: #f0f0f0;
+        }
+
+        nav ul li:hover >.dropdown {
+            display: block;
+        }
+        form#searchForm {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+        form#searchForm select, form#searchForm input[type="text"] {
+            width: 14%;
+            margin: 10px 5px;
+        }
+
+        form#searchForm button[type="submit"], form#searchForm button[type="button"] {
+            width: 9%;
+            margin: 10px 5px;
+        }
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+            text-align: center;
+        }
+        th, td {
+            text-align: center;
+            padding: 8px;
+            border: 1px solid #333;
+        }
+        th {
+            background-color: #36016b;
+            color: #ffffff;
+        }
+        /* Style for previous and next buttons */
+        .pagination-buttons {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 20px;
+        }
+        .pagination-button {
+            margin-left: 10px;
+        }
+        .button-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .button-container button {
+            margin: 0 10px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-container">
+                <h2 class="header-title">cEpiReg</h2>
+                <h3 class="sub-header">Gene Regulatory Network</h3>
+            </div>
+            <nav>
+                <ul>
+                    <li><a class="menu__item" href="Team-10_database.html">Home</a></li>
+                    <li><a class="menu__item" href="GRN-test.html">GRN</a></li>
+                    <li><a class="menu__item" href="ATAC.html">CRE Explorer</a></li>
+                    <li><a class="menu__item" href="eQTL-data.html">CRE + genes</a></li>
+                    <li><a class="menu__item" href="help.html">Help Page</a></li>
+                    <li><a class="menu__item" href="https://hougroup.xyz/" target="_blank">Hou Lab</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <h2>Select Cell Type:</h2>
+        <form id="searchForm">
+            <select name="cell_type" id="cell_type">
+                <option value="Oligodendrocytes">Oligodendrocytes</option>
+                <option value="OligodendrocytePrecursorCells">Oligodendrocyte Precursor Cells</option>
+                <option value="Astrocytes">Astrocytes</option>
+                <option value="VasculatureCells">Vasculature Cells</option>
+                <option value="ExcitatoryNeurons">Excitatory Neurons</option>
+                <option value="InhibitoryNeurons">Inhibitory Neurons</option>
+            </select>
+            <input type="text" name="TF" placeholder="Enter Transcription Factor">
+            <input type="text" name="TG" placeholder="Enter Target Gene">
+            <input type="text" name="Importance" placeholder="Enter Importance">
+            <select name="score_order">
+                <option value="asc">Ascending</option>
+                <option value="desc">Descending</option>
+            </select>
+            <button type="submit">Search</button>
+            <button type="button" id="download">Download</button>
+        </form>
+        <div id="results"></div>
+        <div class="button-container">
+            <button id="viewTop100Interactions">View top 100 interactions</button>
+            <button id="viewGeneRegulatoryNetwork">View Gene Regulatory Network</button>
+        </div>
+        <div class="pagination-buttons">
+            <button id="prevPage" type="button" class="pagination-button">Previous</button>
+            <button id="nextPage" type="button" class="pagination-button">Next</button>
+        </div>
+    </div>    
+    <footer>
+        <p> &copy; cEpiReg Database</p>
+    </footer>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#searchForm').submit(function(event) {
+                event.preventDefault();
+                let cellType = $('#cell_type').val();
+                if (!cellType) {
+                    alert('Please select a cell type.');
+                    return;
+                }
+                fetchData(1); // Fetch initial page data
+            });
+
+            $('#download').click(function() {
+                downloadData();
+            });
+
+            function updateNavigation() {
+                $('#prevPage').prop('disabled', currentPage <= 1);
+                $('#nextPage').prop('disabled', currentPage >= totalPages);
+            }
+
+            $('#prevPage').click(function() {
+                if (currentPage > 1) {
+                    currentPage--;
+                    fetchData(currentPage);
+                }
+            });
+
+            $('#nextPage').click(function() {
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    fetchData(currentPage);
+                }
+            });
+
+            function fetchData(page = 1) {
+                currentPage = page;
+                var formData = $('#searchForm').serialize() + '&page=' + page;
+                $.ajax({
+                    url: 'https://bioed.bu.edu/cgi-bin/students_24/Team_10/grn-test.py',
+                    type: 'POST',
+                    data: formData,
+                    dataType: 'json',
+                    success: function(response) {
+                        updateTable(response.tableData);
+                        totalPages = response.totalPages;
+                        updateNavigation();
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("Error: " + error);
+                        console.error("Status: " + status);
+                        console.error("Response: " + xhr.responseText);
+                        $('#results').html('<div>Error loading results.</div>');
+                    }
+                });
+            }
+
+            function downloadData() {
+                var formData = $('#searchForm').serialize() + '&download=true';
+                window.location.href = 'https://bioed.bu.edu/cgi-bin/students_24/Team_10/grn-test.py?' + formData;
+            }
+            
+            // Handle clicks on the "View top 100 interactions" button
+            $('#viewTop100Interactions').click(function() {
+                let cellType = $('#cell_type').val();
+                window.location.href = `${cellType}-Top100Network.html`;
+            });
+
+            // Handle clicks on the "View Gene Regulatory Network" button
+            $('#viewGeneRegulatoryNetwork').click(function() {
+                let cellType = $('#cell_type').val();
+                window.location.href = `${cellType}-Network.html`;
+            });
+
+            function updateTable(data) {
+                console.log("Received data:", data);
+                if (!data || data.length === 0) {
+                    $('#results').html('<p>No data available.</p>');
+                    return;
+                }
+                var html = '<table border="1"><tr><th>TF</th><th>TG</th><th>Importance</th></tr>';
+                data.forEach(function(row) {
+                    html += `<tr><td><a href="https://jaspar.elixir.no/search?q=${row.TF}&collection=all&tax_group=all&tax_id=9606&type=all&class=all&family=all&version=all" target="_blank">${row.TF}</a></td><td><a href="https://www.ncbi.nlm.nih.gov/gene/?term=${row.TG}[Homo sapiens]" target="_blank">${row.TG}</a></td><td>${row.Importance.toFixed(10)}</td></tr>`;
+                });
+                html += '</table>';
+                $('#results').html(html);
+            }
+        });
+    </script>
+</body>
+</html>

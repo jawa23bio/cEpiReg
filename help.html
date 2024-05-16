@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Help Page - CRE and GENE linkage based on eQTL</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap" rel="stylesheet">
+    <!-- css  styling -->
+    <link rel="stylesheet" type="text/css" href="style1.css">
+    <style>
+        body, html {
+            font-family: 'Open Sans', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        header {
+            background-color: #36016b;
+            color: white;
+            padding: 10px 40px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+        .header-title {
+            font-size: 24px;
+            margin: 0;
+        }
+        .container {
+            width: 90%;
+            margin: auto;
+            padding: 20px;
+        }
+        .collapsible {
+            background-color: #eee;
+            color: #444;
+            cursor: pointer;
+            padding: 18px;
+            width: 100%;
+            border: none;
+            text-align: left;
+            outline: none;
+            font-size: 18px;
+        }
+        .active, .collapsible:hover {
+            background-color: #ccc;
+        }
+        .content {
+            padding: 0 18px;
+            display: none;
+            overflow: hidden;
+            background-color: #f9f9f9;
+            max-width: 100%;
+            width: 95%;
+        }
+        ul {
+            padding-left: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1 class="header-title">Help Page</h1>
+            <nav>
+                <ul>
+                    <li><a class="menu__item" href="Team-10_database.html">Home</a></li>
+                    <li><a class="menu__item" href="GRN-test.html">GRN</a></li>
+                    <li><a class="menu__item" href="ATAC.html">CRE Explorer</a></li>
+                    <li><a class="menu__item" href="eQTL-data.html">CRE + genes</a></li>
+                    <li><a class="menu__item" href="help.html">Help Page</a></li>
+                    <li><a class="menu__item" href="https://hougroup.xyz/" target="_blank">Hou Lab</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <div class="container">
+        <button class="collapsible">Gene Regulatory Network: GRN</button>
+        <div class="content">
+            <button class="collapsible">How to use the website</button>
+            <div class="content">
+                <h2>How to use the website:</h2>
+                <ol>
+                    <li>Select the Cell Type:
+                        <ul>
+                            <li>Choose a cell type from the dropdown menu to query data specific to that type.</li>
+                        </ul>
+                    </li>
+                    <li>Enter Query Parameters:
+                        <ul>
+                            <li>Optionally, you can enter specific transcription factors (TFs), target genes (TGs) and importance values to refine your search.</li>
+                        </ul>
+                    </li>
+                    <li>Submit the Query:
+                        <ul>
+                            <li>Click the "Search" button to retrieve the data based on your specified parameters.</li>
+                        </ul>
+                    </li>
+                    <li>Navigate Results:
+                        <ul>
+                            <li>Use the "Previous" and "Next" buttons to navigate through pages of results.</li>
+                        </ul>
+                    </li>
+                    <li>Network visualization:
+                        <ul>
+                            <li>Provides a graphical representation of the data table above. You can view "Top 100 interactions" focusing on the most important interactions based on highest importance values. You can also view the entire gene regulatory network. You can hover over the nodes to identify the transcription factors and target genes. Additionally, you have the option to download the network in .png format.</li>
+                        </ul>
+                    </li>
+                    <li>Download Data:
+                        <ul>
+                            <li>Click the "Download" button to download the entire dataset or based on your query parameters in .csv format.</li>
+                        </ul>
+                    </li>
+                </ol>
+                <h2>Input Format:</h2>
+                <ul>
+                    <li>TF and TG: Enter alphanumeric strings corresponding to the identifiers.</li>
+                    <li>Importance: Enter a numeric value representing the importance value, which represents the weight that the TF has in the prediction of the target. For more information, please refer to Kumar, Nilesh et al (2021).</li>
+                </ul>
+                <h2>Common Issues and Troubleshooting:</h2>
+                <ul>
+                    <li>"Invalid input format": Ensure all inputs match the expected format detailed above.</li>
+                    <li>"No data available": If your search returns no results, try broadening your search criteria or check for input errors.</li>
+                </ul>
+                <h2>Need More Help?</h2>
+                <p>If you require further assistance or encounter any issues, please contact <a href="mailto:neharao@bu.edu">NehaRao@bu.edu</a>.</p>
+            </div>
+            
+            <button class="collapsible">Biological Context</button>
+            <div class="content">
+                <h2>Biological Context:</h2>
+                <h3>What is a gene regulatory network (GRN)?</h3>
+                <p>A GRN is a collection of interactions between transcription factors (TFs) and their target genes (TGs). These interactions can be represented as a network, where nodes represent TFs and TGs, and edges represent regulatory interactions.</p>
+                <h3>How was the GRN constructed and what does it tell us?</h3>
+                <p>pySCENIC 0.12.1 was used for constructing the gene regulatory network. PySCENIC identifies TFs that are likely to be active in each cell based on their co-expression with their target genes. This can help us understand the regulatory programs that are active in different cell types or conditions. </p>
+            </div>
+        </div>
+        <button class="collapsible">CRE Explorer</button>
+        <div class="content">
+            <button class="collapsible">General Instructions</button>
+              <div class="content">
+                  <h2>Usage:</h2>
+                  <ol>
+                      <li>Enter a gene name:
+                          <ul>
+                              <li>Input the name of the gene you wish to search for. Only one gene can be queried at a time.</li>
+                              Example: ENSG00000163655
+                          </ul>
+                      </li>
+                      <li>Select Chromosome:
+                          <ul>
+                              <li>Choose the Chromosome region you want to query. A dropdown list displays the available Chromosome regions in the database.</li>
+                          </ul>
+                      </li>
+                      <li>Start Position and End Position:
+                          <ul>
+                              <li>Define the start and end regions for the selected Chromosome. These positions help narrow down the search area.</li>
+                          </ul>
+                      </li>
+                      <li>Query Parameters:
+                          <ul>
+                              <li>The CRE Explorer accepts queries with Gene Name and/or Chromosome region. You can also specify the Gene Name, Chromosome region, Start, and End positions together to refine your search.</li>
+                          </ul>
+                      </li>
+                      <li>Submit the Query:
+                          <ul>
+                              <li>Click the "Plot Abundance" button to generate a Pie Chart based on your specified parameters.</li>
+                              <li>Click the "Load CRE Table" button to display the data in a table format. Use the search field above the table to filter values and fields. Navigate through pages using the Pagination option at the bottom.</li>
+                              <li>Click the "Load in IGV" button to view the data in the Integrative Genomics Viewer (IGV) based on your specified parameters.</li>
+                          </ul>
+                      </li>
+                      <li>Pie Chart:
+                          <ul>
+                              <li>Offers a visual breakdown of the CREs present in the provided query. Hover over the slices to view the percentage and count of CREs.</li>
+                          </ul>
+                      </li>
+                      <li>Download Data:
+                          <ul>
+                              <li>Utilize the "Download" button to save the data, based on your query parameters, in .txt format.</li>
+                          </ul>
+                      </li>
+                  </ol>
+                  <h2>Input Format:</h2>
+                  <ul>
+                      <li>Gene Name: Enter only the Entrez ID.</li>
+                      <li>Chromosome: Select any Chromosome region available in the database.</li>
+                      <li>Start and End Positions: Input numeric values to define the region of interest within the selected Chromosome.</li>
+                  </ul>
+                  <h2>Common Issues and Troubleshooting:</h2>
+                  <ul>
+                      <li>"Invalid input format": Ensure all inputs match the expected format detailed above.</li>
+                      <li>"No data available": If your search returns no results, try broadening your search criteria or check for input errors.</li>
+                  </ul>
+                  <h2>Need More Help?</h2>
+                  <p>If you require further assistance or encounter any issues, please contact <a href="mailto:jawa@bu.edu">jawa@bu.edu</a>.</p>
+              </div>
+              <button class="collapsible">Biological Context</button>
+              <div class="content">
+                  <h3>Cis-Regulatory Elements (CREs):</h3>
+                  <p>CREs, often dubbed the "switches" of the genome, govern gene expression with precision. They dynamically respond to cellular signals, orchestrating gene activity in a spatiotemporal manner. CREs encompass:</p>
+                  <ul>
+                      <li><strong>Promoters:</strong> Initiate transcription by recruiting RNA polymerase and transcriptional machinery.</li>
+                      <li><strong>Enhancers:</strong> Amplify gene expression by looping over long distances to interact with promoters.</li>
+                      <li><strong>Silencers:</strong> Dampen gene activity, exerting a repressive influence on transcription.</li>
+                      <li><strong>Insulators:</strong> Act as genomic boundary elements, segregating chromatin domains and preventing the spread of regulatory signals.</li>
+                  </ul>
+                  <p>These elements integrate diverse signals, including transcription factor binding and epigenetic modifications, to coordinate gene expression tailored to specific cellular contexts.</p>
+                  <h3>Linking CREs to Genes via ATAC Seq</h3>
+                  <p>Technologies like ATAC Seq (Assay for Transposase-Accessible Chromatin using sequencing) offer a powerful tool for identifying and characterizing CREs. ATAC Seq enables researchers to map regions of open chromatin, which are indicative of active regulatory elements. By pinpointing these accessible regions, ATAC Seq provides insights into the genomic landscape, revealing the locations of CREs and their associations with nearby genes.</p>
+                  <h3>CREs tell us about the Epigenetic Landscape</h3>
+                  <p>Understanding the relationship between CREs and genes is crucial for unraveling the intricate biological context of the epigenetic landscape. By elucidating how CREs regulate gene expression, researchers gain valuable insights into the underlying mechanisms governing cellular processes and disease phenotypes. This knowledge enhances our comprehension of gene regulatory networks, offering potential targets for therapeutic intervention and personalized medicine approaches. Moreover, linking CREs to genes based on their regulatory interactions provides a holistic view of genome function, shedding light on the complex interplay between genetic variations, epigenetic modifications, and phenotypic outcomes.</p>
+              </div>
+          </div>
+        <button class="collapsible">CRE and GENE linkage based on eQTL</button>
+        <div class="content">
+            <button class="collapsible">How to Use the Form</button>
+            <div class="content">
+                <h2>How to Use the Form:</h2>
+                <ol>
+                    <li>Select the Cell Type:
+                        <ul>
+                            <li>Choose a cell type from the dropdown menu to query data specific to that type.</li>
+                        </ul>
+                    </li>
+                    <li>Enter Query Parameters:
+                        <ul>
+                            <li>Optionally, you can enter specific IDs for CRE, Gene, and SNP, or a Proximity Score to refine your search.</li>
+                            <li>Select whether you want the results ordered in ascending or descending order based on the Proximity Score.</li>
+                        </ul>
+                    </li>
+                    <li>Submit the Query:
+                        <ul>
+                            <li>Click the "Search" button to retrieve the data based on your specified parameters.</li>
+                        </ul>
+                    </li>
+                    <li>Navigate Results:
+                        <ul>
+                            <li>Use the "Previous" and "Next" buttons to navigate through pages of results.</li>
+                            <li>Click on the specific Gene ID or SNP ID to go to their respective UCSC and dbSNP for more information</li>
+                        </ul>
+                    </li>
+                    <li>Heatmap:
+                        <ul>
+                            <li>Provides a graphical representation of the data table above. As you navigate through pages with the change in data displayed, the heatmap will change</li>
+                        </ul>
+                    </li>
+                    <li>Download Data:
+                        <ul>
+                            <li>Click the "Download" button to download the entire dataset or based on your query parameters in .csv format.</li>
+                        </ul>
+                    </li>
+                </ol>
+                <h2>Available Datasets:</h2>
+                <ul>  
+                    <li>Astrocytes: 310 MB</li>
+                    <li>Microglia: 302 MB</li>
+                    <li>OPCs...COPs: 403 MB</li>
+                    <li>Pericytes: 754 MB</li>
+                    <li>Endothelial Cells: 1 GB</li>
+                    <li>Excitatory Neurons: 327 MB</li>
+                    <li>Inhibitory Neurons: 307 MB</li>
+                    <li>Oligodendrocytes: 472 MB</li>
+                </ul>
+                <h2>Input Format:</h2>
+                <ul>
+                    <li>CRE_ID, Gene_ID, SNP_ID: Enter alphanumeric strings corresponding to the identifiers.</li>
+                    <li>Proximity Score: Enter a numeric value representing the proximity score, which quantifies the linkage strength.</li>
+                </ul>
+                <h2>Common Issues and Troubleshooting:</h2>
+                <ul>
+                    <li>"Invalid input format": Ensure all inputs match the expected format detailed above.</li>
+                    <li>"No data available": If your search returns no results, try broadening your search criteria or check for input errors.</li>
+                </ul>
+                <h2>Need More Help?</h2>
+                <p>If you require further assistance or encounter any issues, please contact <a href="mailto:bkapalli@bu.edu">bkapalli@bu.edu</a>.</p>
+            </div>
+            <button class="collapsible">Biological Context</button>
+            <div class="content">
+                <h2>Biological Context:</h2>
+                <h3>What are eQTLs?</h3>
+                <p>Expression Quantitative Trait Loci (eQTLs) are specific regions of the genome that are associated with the regulation of gene expression levels. They represent genetic variants, typically single nucleotide polymorphisms (SNPs), that influence how genes are expressed in various tissues or under different conditions. Identifying eQTLs helps researchers understand how genetic variations contribute to normal biological processes and the development of diseases.</p>
+                <h3>What are CREs?</h3>
+                <p>Cis-regulatory elements (CREs) are stretches of non-coding DNA which serve as binding sites for transcription factors and other regulatory proteins to control the transcription of nearby genes. These elements include promoters, enhancers, silencers, and insulators, and play crucial roles in gene regulation. CREs are fundamental in dictating where, when, and to what extent genes are activated across different cell types and conditions.</p>
+                <h3>What does linking CREs and genes based on eQTLs tell us?</h3>
+                <p>Linking cis-regulatory elements (CREs) and genes based on eQTLs provides insights into the functional consequences of genetic variants on gene expression. This connection helps identify which genes are potentially regulated by specific eQTLs and which CREs are involved in that regulation. Understanding these links can explain how genetic variations contribute to phenotypic differences and disease susceptibility.</p>
+            </div>
+        </div>
+    </div>
+    <footer style="text-align: center; padding: 10px; background-color: #36016b; color: white;">
+        <p>©️ cEpiReg Database</p>
+    </footer>
+    <script>
+        var coll = document.getElementsByClassName("collapsible");
+        for (let i = 0; i < coll.length; i++) {
+            coll[i].addEventListener("click", function() {
+                this.classList.toggle("active");
+                var content = this.nextElementSibling;
+                if (content.style.display === "block") {
+                    content.style.display = "none";
+                } else {
+                    content.style.display = "block";
+                }
+            });
+        }
+    </script>
+</body>
+</html>
+

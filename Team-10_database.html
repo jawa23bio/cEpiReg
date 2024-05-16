@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>cEpiReg: A Database for TF-gene-CRE regulations and their implications in Alzheimer's disease genetics - Revealing the hidden link</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #36016b;
+            --secondary-color: #ad026e;
+            --tertiary-color: #24293e;
+            --quaternary-color: #ffffff;
+        }
+        body {
+            font-family: 'Open Sans', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--quaternary-color);
+            color: var(--tertiary-color);
+        }
+        header {
+            background-color: var(--primary-color);
+            padding: 20px 0;
+            color: #fff;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+        }
+        .logo-container {
+            text-align: center;
+        }
+        .logo img {
+            max-width: 550px; /* Adjust the width as needed */
+            height: auto;
+            display: inline-block; /* Make the image a block element */
+            margin-bottom: 5px; /* Add some space between the image and db logo*/
+        }
+        .logo .db-logo {
+            max-width: 300px; /* Adjust the width as needed */
+            height: auto;
+            display: inline-block; /* Make the image a block element */
+            margin-bottom: 5px; /* Add some space between the image and "cEpiReg" */
+        }    
+        .logo h2, .logo h3 {
+            font-family: 'Open Sans', sans-serif;
+            margin: 0;
+        }
+        .logo h2 {
+            font-size: 5.5rem; 
+            margin-top: -5px;
+        }
+        .logo h3 {
+            font-size: 1.0rem; 
+            margin-top: -5px; /* Adjust the negative margin to minimize the space between h2 and h3 */
+            margin-bottom: 10px;
+        }
+        nav {
+            text-align: right;
+            margin-top: 15px;
+        }
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: inline-block;
+        }
+        nav ul li {
+            display: inline-block;
+            margin-left: 20px;
+            position: relative; /* Add this line to position the dropdown menu */
+        }
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.2rem;
+        }
+        .dropdown {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #fff;
+            border: 1px solid #ddd;
+            padding: 10px;
+            display: none;
+            <!--text-align: center;-->
+        }
+
+        .dropdown li {
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .dropdown li a {
+            color: #333;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .dropdown li a:hover {
+            background-color: #f0f0f0;
+        }
+
+        nav ul li:hover >.dropdown {
+            display: block;
+        }
+
+        .content {
+            padding: 50px 0;
+            text-align: justify;
+            margin-top: -20px;
+        }
+        footer {
+            background-color: #36016b;
+            color: var(--quaternary-color);
+            padding: 20px 0;
+            text-align: center;
+        }
+        /* Style the menu items */
+        .menu__item {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.2rem;
+        }
+        .contact {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #36016b;
+            color: var(--quaternary-color);
+            border-radius: 5px;
+            text-align: center; /* Aligning the content to the center */
+        }
+        .contact h3 {
+            font-size: 1.5rem;
+            color: var(--quaternary-color);
+        }
+        .contact hr {
+            border: none;
+            border-top: 1px solid rgba(0, 0, 0, 0.3); /* Semi-transparent horizontal line */
+            color: var(--quaternary-color);
+            margin: 10px auto; /* Centering the line */
+            width: 50%; /* Adjust the width of the line */
+        }
+        .contact p {
+            font-size: 1rem;
+            color: var(--quaternary-color);
+        }
+        .video-section {
+            margin-top: 40px; /* Adjust the margin-top to create space from the header */
+        }
+
+        .video-section video {
+            width: 100%; /* Set the video width to 100% of its container */
+            max-width: 800px; /* Set a maximum width for the video */
+            display: block; /* Make the video a block element */
+            margin: 0 auto; /* Center the video horizontally */
+            border-top: 5px solid black; /* Add black border on top */
+            border-bottom: 5px solid black; /* Add black border on bottom */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo-container">
+                <div class="logo">
+                    <img class="db-logo" src="/images/students_24/neharao/NR-biorender-cepireg-logo.png" alt="db Logo">
+                </div>
+                <div class="logo-text">
+                    <h2>Context-specific epigenetic regulatory network database</h2>
+                    <h3>A Database for TF-gene-CRE regulations and their implications in Alzheimer's disease genetics</h3>
+                </div>
+            </div>
+            <nav>
+                <ul>
+                    <li><a class="menu__item" href="Team-10_database.html">Home</a></li>
+                    <li><a class="menu__item" href="GRN-test.html">GRN</a></li>
+                    <li><a class="menu__item" href="ATAC.html">CRE Explorer</a></li>
+                    <li><a class="menu__item" href="eQTL-data.html">CRE + genes</a></li>
+                    <li><a class="menu__item" href="help.html">Help Page</a></li>
+                    <li><a class="menu__item" href="https://hougroup.xyz/" target="_blank">Hou Lab</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <div class="container">
+        <section class="video-section">
+            <video width="100%" controls>
+                <source src="/images/students_24/Team_10/Database_Overview.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <section class="content">
+                <p>cEpiReg constructs a comprehensive database elucidating the intricate regulatory mechanisms underlying Alzheimer's Disease (AD) genetics.Through integrating data from scRNA seq and sc-ATAC seq, we identified the cis-regulatory elements (CREs) by comparing our results against various databases like ENCODE, Epimap, GWAS Catalog, and publicly available datasets. This project establishes a robust framework connecting transcription factors (TFs), CREs, and target genes. cEpiReg uncovers hidden regulatory links that could piece together missing links crucial for understanding AD pathogenesis.</p>
+                <p>The cEpiReg Database was developed at Boston University as part of BF768, Spring 2024 course, under the instruction of Dr Gary Benson, Dr Lei Hou and Dr Ting-Ting Fu.</p>
+            </section>
+        </div>
+    </main>
+    <footer>
+        <div class="container">
+            <h2>Website and database created by Neha Rao, Bhavana Kapalli, and Jawahar Mahendran</h2>
+        </div>
+        <div class="container contact">
+            <h3>Contact Us</h3>
+            <hr>
+            <p>Principal Investigator: Lei Hou, Ph.D.<br>
+            Section of Biomedical Genetics, Department of Medicine,<br>
+            Boston University Chobanian & Avedisian School of Medicine<br>
+            Email: LeiHou@BU.Edu</p>
+        </div>
+    </footer>
+</body>
+</html>

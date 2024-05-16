@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRE and GENE linkage based on eQTL</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
+    <style>
+        body, html {
+            font-family: 'Open Sans', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        header {
+            background-color: #36016b;
+            color: white;
+            padding: 20px 40px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+        }
+        .header-content {
+            max-width: 100%; /* Ensure content is not overly wide */
+        }
+        .nav-links {
+            margin-top: 20px; /* Space between description and links */
+            display: flex;
+            justify-content: flex-end;
+            width: 100%; /* Ensure links can be right-aligned */
+        }
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+            font-size: 16px;
+        }
+        .container {
+            width: 90%;
+            margin: auto;
+            padding: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            text-align: left;
+            padding: 8px;
+            border: 1px solid #ccc;
+        }
+        th {
+            background-color: #36016b;
+            color: white;
+        }
+        select, input, button {
+            margin: 10px 0;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        h2, h3 {
+            margin-top: 20px;
+        }
+        nav {
+            text-align: right;
+            margin-top: 15px;
+        }
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: inline-block;
+        }
+        nav ul li {
+            display: inline-block;
+            margin-left: 20px;
+            position: relative; /* Add this line to position the dropdown menu */
+        }
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.2rem;
+        }
+        .dropdown {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #fff;
+            border: 1px solid #ddd;
+            padding: 10px;
+            display: none;
+            <!--text-align: center;-->
+        }
+        
+        .dropdown li {
+            margin-bottom: 10px;
+            display: block;
+        }
+        
+        .dropdown li a {
+            color: #333;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+        
+        .dropdown li a:hover {
+            background-color: #f0f0f0;
+        }
+        
+        nav ul li:hover >.dropdown {
+            display: block;
+        }
+        footer {
+            background-color: #36016b;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1>CRE and GENE linkage based on eQTL</h1>
+            <p>Overview of CRE, genes, and genetic variants associated with Alzheimer’s in 8 brain cell types</p>
+        </div>
+        <nav>
+                <ul>
+                    <li><a class="menu__item" href="Team-10_database.html">Home</a></li>
+                    <li><a class="menu__item" href="GRN-test.html">GRN</a></li>
+                    <li><a class="menu__item" href="ATAC.html">CRE Explorer</a></li>
+                    <li><a class="menu__item" href="eQTL-data.html">CRE + gene</a></li>
+                    <li><a class="menu__item" href="help.html">Help Page</a></li>
+                    <li><a class="menu__item" href="https://hougroup.xyz/" target="_blank">Hou Lab</a></li>
+                </ul>
+            </nav>
+    </header>
+    <div class="container">
+        <h2>Select Cell Type:</h2>
+        <form id="searchForm">
+            <select name="cell_type" id="cell_type">
+                <option value="Astrocytes">Astrocytes</option>
+                <option value="Microglia">Microglia</option>
+                <option value="OPCsCOPs">OPCsCOPs</option>
+                <option value="Pericytes">Pericytes</option>
+                <option value="Endothelial cells">Endothelial cells</option>
+                <option value="Excitatory neurons">Excitatory neurons</option>
+                <option value="Inhibitory neurons">Inhibitory neurons</option>
+                <option value="Oligodendrocytes">Oligodendrocytes</option>
+            </select>
+            <h3>Table Data</h3>
+            <input type="text" name="cre_id" placeholder="Enter CRE ID">
+            <input type="text" name="gene_id" placeholder="Enter Gene ID">
+            <input type="text" name="snp_id" placeholder="Enter SNP ID">
+            <input type="text" name="proximity_score" placeholder="Enter Proximity Score">
+            <select name="score_order">
+                <option value="asc">Ascending</option>
+                <option value="desc">Descending</option>
+            </select>
+            <button type="submit" style="background-color: #36016b; color: white; transition: background-color 0.3s; border: none; padding: 10px 20px; cursor: pointer; border-radius: 5px" onmouseover="this.style.backgroundColor='#ad026e'" onmouseout="this.style.backgroundColor='#36016b'">Search</button>
+            <button type="button" style="background-color: #36016b; color: white; transition: background-color 0.3s; border: none; padding: 10px 20px; cursor: pointer; border-radius: 5px" onmouseover="this.style.backgroundColor='#ad026e'" onmouseout="this.style.backgroundColor='#36016b'" id="download">Download</button>
+        </form>
+        <div id="results"></div>
+        <button id="prevPage" type="button" style="background-color: #36016b; color: white; transition: background-color 0.3s; border: none; padding: 10px 20px; cursor: pointer; border-radius: 5px" onmouseover="this.style.backgroundColor='#ad026e'" onmouseout="this.style.backgroundColor='#36016b'">Previous</button>
+        <button id="nextPage" type="button" style="background-color: #36016b; color: white; transition: background-color 0.3s; border: none; padding: 10px 20px; cursor: pointer; border-radius: 5px" onmouseover="this.style.backgroundColor='#ad026e'" onmouseout="this.style.backgroundColor='#36016b'">Next</button>
+        <h3>Heatmap</h3>
+        <div id="heatmapResults" style="width: 800px; height: 600px;"></div>
+    </div>
+    <footer>
+        <p>©️ cEpiReg Database</p>
+    </footer>
+    <script>
+        $(document).ready(function() {
+            let currentPage = 1;
+            let totalPages = 0;
+
+            google.charts.load('upcoming', {
+                'packages': ['vegachart']
+            }).then(function() {
+                $('#searchForm').submit(function(event) {
+                    event.preventDefault();
+                    fetchData(1); // Fetch initial page data
+                });
+                $('#download').click(function() {
+                    downloadData();
+                });
+            });
+
+            function updateNavigation() {
+                $('#prevPage').prop('disabled', currentPage <= 1);
+                $('#nextPage').prop('disabled', currentPage >= totalPages);
+            }
+
+            $('#prevPage').click(function() {
+                if (currentPage > 1) {
+                    currentPage--;
+                    fetchData(currentPage);
+                }
+            });
+
+            $('#nextPage').click(function() {
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    fetchData(currentPage);
+                }
+            });
+
+            function fetchData(page = 1) {
+                currentPage = page;
+                var formData = $('#searchForm').serialize() + '&page=' + page;
+                $.ajax({
+                    url: 'https://bioed.bu.edu/cgi-bin/students_24/Team_10/eqtl.py',
+                    type: 'POST',
+                    data: formData,
+                    dataType: 'json',
+                    success: function(response) {
+                        updateTable(response.tableData);
+                        drawChart(response.heatmapData);
+                        totalPages = response.totalPages;
+                        updateNavigation();
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("Error: " + error);
+                        console.error("Status: " + status);
+                        console.error("Response: " + xhr.responseText);
+                        $('#results').html('<div>Error loading results.</div>');
+                        $('#heatmapResults').html('<div>Error loading heatmap.</div>');
+                    }
+                });
+            }
+
+            function downloadData() {
+                var formData = $('#searchForm').serialize() + '&download=true';
+                window.location.href = 'https://bioed.bu.edu/cgi-bin/students_24/Team_10/eqtl.py?' + formData;
+            }
+
+            function updateTable(data) {
+                console.log("Update data:", data)
+                if (!data || data.length === 0) {
+                    $('#results').html('<p>No data available.</p>');
+                    return;
+                }
+                var html = '<table border="1"><tr><th>CRE_ID</th><th>Gene_ID</th><th>SNP_ID</th><th>Proximity Score</th></tr>';
+                data.forEach(function(row) {
+                    var geneLink = `https://genome.ucsc.edu/cgi-bin/hgTracks?db=hg38&position=${encodeURIComponent(row.Gene_ID)}`;
+                    var snpLink = `https://www.ncbi.nlm.nih.gov/snp/${encodeURIComponent(row.SNP_ID)}`;
+                    html += `<tr>
+                                <td>${row.CRE_ID}</td>
+                                <td><a href="${geneLink}" target="_blank">${row.Gene_ID}</a></td>
+                                <td><a href="${snpLink}" target="_blank">${row.SNP_ID}</a></td>
+                                <td>${row.Proximity_Score.toFixed(10)}</td>
+                            </tr>`;
+                });
+                html += '</table>';
+                $('#results').html(html);
+            }
+
+            function drawChart(data) {
+                console.log("Draw chart:", data);
+                const dataTable = new google.visualization.DataTable(); // Currently not used but required for the API
+                console.log(data);
+                const options = {
+                    'vegaLite': {
+                        "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+                        "data": {
+                            "values": data
+                        },
+                        "mark": "rect",
+                        "encoding": {
+                            "x": {"field": "Gene_ID", "type": "nominal", "title": "Gene ID"},
+                            "y": {"field": "CRE_ID", "type": "nominal", "title": "CRE ID"},
+                            "color": {
+                                "field": "Proximity_Score",
+                                "type": "quantitative",
+                                "scale": {"scheme": "viridis"},
+                                "legend": {"title": "Proximity Score"}
+                            }
+                        }
+                    }
+                };
+                const chart = new google.visualization.VegaChart(document.getElementById('heatmapResults'));
+                chart.draw(dataTable, options);
+            }
+        });
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>cEpiReg: A Database for TF-gene-CRE regulations and their implications in Alzheimer's disease genetics - Revealing the hidden link</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #36016b;
+            --secondary-color: #ad026e;
+            --tertiary-color: #24293e;
+            --quaternary-color: #ffffff;
+        }
+        body {
+            font-family: 'Open Sans', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--quaternary-color);
+            color: var(--tertiary-color);
+        }
+        header {
+            background-color: var(--primary-color);
+            padding: 20px 0;
+            color: #fff;
+        }
+       .container {
+            width: 80%;
+            margin: 0 auto;
+        }
+       .logo-container {
+            text-align: center;
+        }
+       .logo img {
+            max-width: 550px; /* Adjust the width as needed */
+            height: auto;
+            display: inline-block; /* Make the image a block element */
+            margin-bottom: 5px; /* Add some space between the image and "cEpiReg" */
+        }
+       .logo h2,.logo h3 {
+            font-family: 'Open Sans', sans-serif;
+            margin: 0;
+        }
+       .logo h2 {
+            font-size: 3.5rem; 
+            margin-top: -5px;
+            margin-bottom: -20px;
+        }
+       .logo h3 {
+            font-size: 1.5rem; 
+            margin-top: -20px; /* Adjust the negative margin to minimize the space between h2 and h3 */
+        }
+        nav {
+            text-align: right;
+        }
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: inline-block;
+        }
+        nav ul li {
+            display: inline-block;
+            margin-left: 20px;
+        }
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.2rem;
+        }
+       .content {
+            padding: 50px 0;
+            text-align: justify;
+        }
+        footer {
+            background-color: #36016b;
+            color: var(--quaternary-color);
+            padding: 20px 0;
+            text-align: center;
+        }
+        /* Style the menu items */
+       .menu__item {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.2rem;
+        }
+       .contact {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #d3d2f7;
+            border-radius: 5px;
+            text-align: center; /* Aligning the content to the center */
+        }
+       .contact h3 {
+            font-size: 1.5rem;
+            color: #333;
+        }
+       .contact hr {
+            border: none;
+            <!--border-top: 1px solid rgba(0, 0, 0, 0.3); /* Semi-transparent horizontal line */-->
+            margin: 10px auto; /* Centering the line */
+            width: 50%; /* Adjust the width of the line */
+        }
+       .contact p {
+            font-size: 1rem;
+            color: #666;
+        }
+
+        /* Style for buttons */
+        button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            margin-right: 10px;
+        }
+
+        button:hover {
+            background-color: var(--primary-color);
+        }
+        /* Center align the buttons and dropdown */
+        #csvDisplay {
+            text-align: center;
+        }
+        #csvSelect,
+        button {
+            margin: 10px; /* Adjust the margin as needed */
+        }
+
+        /* New style for header text */
+       .header-container {
+            text-align: center;
+        }
+       .header-title {
+            font-size: 3.5rem;
+           margin: 0;
+        }
+       .sub-header {
+            font-size: 1.5rem;
+            margin: 0;
+        }
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+        th, td {
+            text-align: left;
+            padding: 8px;
+            border: 1px solid #333;
+        }
+        th {
+            background-color: var(--primary-color);
+        }
+        /* Add space between questions and paragraphs */
+        p {
+            margin-top: -20px; 
+        }
+        .dropdown {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #fff;
+            border: 1px solid #ddd;
+            padding: 10px;
+            display: none;
+            <!--text-align: center;-->
+        }
+
+        .dropdown li {
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .dropdown li a {
+            color: #333;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .dropdown li a:hover {
+            background-color: #f0f0f0;
+        }
+
+        nav ul li:hover >.dropdown {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-container">
+                <h2 class="header-title">cEpiReg</h2>
+                <h3 class="sub-header">Frequently asked questions</h3>
+            </div>
+            <nav>
+                <ul>
+                    <li><a class="menu__item" href="Team-10_database.html">Home</a></li>
+                    <li>
+                      <a class="menu__item" href="#">GRN</a>
+                      <ul class="dropdown">
+                        <li><a href="Microglia.html">Microglia</a></li>
+                        <li><a href="InhibitoryNeurons.html">Inhibitory Neurons</a></li>
+                        <li><a href="ExcitatoryNeurons.html">Excitatory Neurons</a></li>
+                        <li><a href="Oligodendrocytes.html">Oligodendrocytes</a></li>
+                        <li><a href="Vasculature.html">Vasculature Cells</a></li>
+                      </ul>
+                    </li>
+                    <li><a class="menu__item" href="eQTL-data.html">CRE + gene</a></li>
+                    <li><a class="menu__item" href="ATAC.html">CRE + TF</a></li>
+                    <li><a class="menu__item" href="FAQs.html">Help Page</a></li>
+                    <li><a class="menu__item" href="https://hougroup.xyz/" target="_blank">Hou Lab</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <div class="content">
+        <div class="container">
+            <h2>What information is available on cEpiReg?</h2>
+            <p>cEpiReg provides information on gene regulatory networks (GRNs), expression quantitative trait loci (eQTLs), and cis-regulatory elements (CREs) in the context of Alzheimer's disease genetics.</p>
+            <h2>What is a gene regulatory network (GRN)?</h2>
+            <p>A GRN is a collection of interactions between transcription factors (TFs) and their target genes (TGs). These interactions can be represented as a network, where nodes represent TFs and TGs, and edges represent regulatory interactions.</p>
+            <h2>What are eQTLs?</h2>
+            <p>Expression quantitative trait loci (eQTLs) are genetic variants that are associated with changes in gene expression. These variants can help identify functional genetic elements and their target genes, providing insights into the genetic basis of complex traits and diseases.</p>
+            <h2>What are CREs?</h2>
+            <p>Cis-regulatory elements (CREs) are regions of non-coding DNA which regulate the transcription of neighboring genes. Cell type-specific gene expression patterns and dynamics during development or in disease are controlled by CREs, such as promoters and enhancers.</p>
+            <h2>How can I use cEpiReg to explore GRNs, eQTLs, and CREs?</h2>
+            <p>You can use cEpiReg to explore GRNs, eQTLs, and CREs by searching for specific genes, TFs, or genetic variants in the respective tabs. The database provides interactive visualizations of GRNs, eQTLs, and CREs, allowing you to explore the relationships between these elements and their implications in Alzheimer's disease genetics.</p>
+            <h2>How was the GRN constructed?</h2>
+            <p>The scRNA-seq data used as input was obtained from Mathys et al. Cell (2023). pySCENIC 0.12.1 was used for constructing the gene regulatory network.</p>
+            <h2>How were the TGs and CREs linked?</h2>
+            <p>CREs and TGs are linked based on eQTLs and linkage scores. This helps us understand how genetic variants (SNPs) influence the expression of genes and regulatory elements associated with AD.</p>
+            <h2>Can the data be downloaded?</h2>
+            <p>The data tables can be downloaded as CSV files from the respective tabs.</p>
+        </div>
+    </div>
+    <footer>
+        <div class="container">
+            <h2>Website and database created by Neha Rao, Bhavana Kapalli, and Jawahar Mahendran</h2>
+        </div>
+        <div class="container contact">
+            <h3>Contact Us</h3>
+            <hr>
+            <p>Principal Investigator: Lei Hou, Ph.D.<br>
+            Section of Biomedical Genetics, Department of Medicine,<br>
+            Boston University Chobanian & Avedisian School of Medicine<br>
+            Email: LeiHou@BU.Edu</p>
+        </div>
+    </footer>
+</body>
+</html>

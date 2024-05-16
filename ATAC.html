@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRE Explorer</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap" rel="stylesheet">
+    <!-- Load jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <!-- Load Google Charts -->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <!-- Load DataTables CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
+    <!-- Load DataTables JavaScript -->
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
+    <!-- Load IGV JavaScript -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/igv@2.15.5/dist/igv.min.js"></script>
+    <!-- css  styling -->
+    <link rel="stylesheet" type="text/css" href="style1.css">
+     <style>
+        header {
+            background-color: #36016b;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+        }
+        
+        footer {
+            background-color: #36016b;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+        }
+        
+        th {
+            background-color: #36016b;
+            color: white;
+        }
+        
+    </style>
+</head>
+<body>
+    <header>
+      <h1>CRE Explorer</h1>
+      <p><em>Exploring Gene-CRE Associations and Genomic Locations in Brain Tissues</em></p>
+      <nav>
+                <ul>
+                    <li><a class="menu__item" href="Team-10_database.html">Home</a></li>
+                    <li><a class="menu__item" href="GRN-test.html">GRN</a></li>
+                    <li><a class="menu__item" href="ATAC.html">CRE Explorer</a></li>
+                    <li><a class="menu__item" href="eQTL-data.html">CRE + gene</a></li>
+                    <li><a class="menu__item" href="help.html">Help Page</a></li>
+                    <li><a class="menu__item" href="https://hougroup.xyz/" target="_blank">Hou Lab</a></li>
+                </ul>
+            </nav>
+    </header>
+    <div class="container">
+    <div class="search-container">
+      <h2>Gene Search</h2>
+      <p>Enter a gene name:</p>
+      <input type="text" id="gene_name" placeholder="Enter an Entrez ID">
+      <span class="example-gene">Eg: ENSG00000251727</span>
+      <h2>Chromosome Search</h2>
+      <p>Select Chromosome:</p>
+      <select id="chromosome">
+          <option value="">Select Chromosome</option>
+          <option value="chr1">chr1</option>
+          <option value="chr2">chr2</option>
+          <option value="chr3">chr3</option>
+          <option value="chr4">chr4</option>
+          <option value="chr5">chr5</option>
+          <option value="chr6">chr6</option>
+          <option value="chr7">chr7</option>
+          <option value="chr8">chr8</option>
+          <option value="chr9">chr9</option>
+          <option value="chr10">chr10</option>
+          <option value="chr11">chr11</option>
+          <option value="chr12">chr12</option>
+          <option value="chr13">chr13</option>
+          <option value="chr14">chr14</option>
+          <option value="chr15">chr15</option>
+          <option value="chr16">chr16</option>
+          <option value="chr17">chr17</option>
+          <option value="chr18">chr18</option>
+          <option value="chr19">chr19</option>
+          <option value="chr20">chr20</option>
+          <option value="chrX">chrX</option>
+          <option value="chrY">chrY</option>
+          <option value="GL000195.1">GL000195.1</option>
+          <option value="GL000219.1">GL000219.1</option>
+          <option value="KI270733.1">KI270733.1</option>
+          <option value="KI270713.1">KI270713.1</option>
+          <option value="GL000205.2">GL000205.2</option>
+          <option value="GL000225.1">GL000225.1</option>
+          <option value="GL000220.1">GL000220.1</option>
+          <option value="KI270727.1">KI270727.1</option>
+          <option value="KI270442.1">KI270442.1</option>
+          <option value="GL000216.2">GL000216.2</option>
+          <option value="KI270744.1">KI270744.1</option>
+          <option value="GL000194.1">GL000194.1</option>
+          <option value="KI270750.1">KI270750.1</option>
+      </select>
+  
+      <!-- Start position -->
+      <p>Start Position:</p>
+      <input type="text" id="start" placeholder="Enter only numeric values">
+  
+      <!-- End position -->
+      <p>End Position:</p>
+      <input type="text" id="end" placeholder="Enter only numeric values">
+        <div class="button-container">
+            <button id="PlotBtn" style="background-color: #36016b; color: white; transition: background-color 0.3s; border: none; padding: 10px 20px; cursor: pointer; border-radius: 5px" onmouseover="this.style.backgroundColor='#ad026e'" onmouseout="this.style.backgroundColor='#36016b'">Plot Abundance</button>
+<button id="LoadTableBtn" style="background-color: #36016b; color: white; transition: background-color 0.3s; border: none; padding: 10px 20px; cursor: pointer; border-radius: 5px" onmouseover="this.style.backgroundColor='#ad026e'" onmouseout="this.style.backgroundColor='#36016b'">Load CRE table</button>
+<button id="DownloadTxtBtn" style="background-color: #36016b; color: white; transition: background-color 0.3s; border: none; padding: 10px 20px; cursor: pointer; border-radius: 5px" onmouseover="this.style.backgroundColor='#ad026e'" onmouseout="this.style.backgroundColor='#36016b'">Download</button>
+<button id="LoadIGVBtn" style="background-color: #36016b; color: white; transition: background-color 0.3s; border: none; padding: 10px 20px; cursor: pointer; border-radius: 5px" onmouseover="this.style.backgroundColor='#ad026e'" onmouseout="this.style.backgroundColor='#36016b'">Load in IGV</button>
+
+        </div>
+      
+        <div class="chart-container">
+        <div id="PieChart" style="height: 400px;"></div>
+        </div>
+        
+      <div id="PieTable"></div>
+      <div id="igvDiv"></div>
+      
+    </div>
+    </div>
+    <footer>
+        <p> &copy; cEpiReg Database</p>
+    </footer>
+    <script>
+    // JavaScript code
+    $(document).ready(function(){
+        var igvBrowser;
+        var additionalTracksLoaded = false;
+
+        // Event listener for Load IGV button
+        $("#LoadIGVBtn").click(function(){
+            var geneName = $("#gene_name").val();
+            var chromosome = $("#chromosome").val();
+            var start = $("#start").val();
+            var end = $("#end").val();
+            var locus;
+            
+            // Check if chromosome and start-end positions are provided
+            if (chromosome && start && end) {
+                locus = chromosome + ":" + start + "-" + end;
+            }
+            // Check if chromosome and start-end positions are provided
+            if (chromosome) {
+                locus = chromosome;
+            }
+            // Check if gene name is provided
+            else if (geneName) {
+                locus = geneName;
+            }
+            // If neither gene name nor chromosome is provided
+            else {
+                alert("Please provide either a gene name or a chromosome number.");
+                return;
+            }
+            
+            // Additional tracks
+            var additionalTracks = [
+                {   // ENCODE: BED file track
+                    name: "ENCODE_CREs",
+                    type: "annotation",
+                    format:"bed",
+                    url: 'https://downloads.wenglab.org/cCREs/GRCh38-PLS.bed'
+                },
+                {   // Epimap: Enhancers file track
+                    name: "Epimap_Enhancers",
+                    type: "annotation",
+                    format:"bed",
+                    url: 'https://bioed.bu.edu/students_24/Team_10/ENH_masterlist_locations.bed'
+                },
+                {   // Epimap: Promoters file track
+                    name: "Epimap_Promoters",
+                    type: "annotation",
+                    format:"bed",
+                    url: 'https://bioed.bu.edu/students_24/Team_10/PROM_masterlist_locations.bed'
+                },
+                {   // Brain:Bed file track
+                    name: "Brain_Peaks",
+                    type: "annotation",
+                    format:"bed",
+                    url: 'https://bioed.bu.edu/students_24/Team_10/GSM5589415_UMB4540_snATAC_frontal_cortex_rep2_fragments_summits.bed'
+                }
+            ];
+
+
+            // Check if an IGV browser instance already exists
+            if (igvBrowser) {
+                // Refresh the existing IGV browser with new parameters
+                igvBrowser.search(locus).then(function () {
+                    if (!additionalTracksLoaded) {
+                        // Add additional tracks
+                        igvBrowser.loadTrackList(additionalTracks);
+                        additionalTracksLoaded = true; // Set the flag to true to indicate that additional tracks have been loaded
+                    }
+                });
+            } else {
+                // Create IGV browser
+                igv.createBrowser($("#igvDiv")[0], {
+                    genome: "hg38",  // Specify the genome assembly
+                    locus: locus,   // Specify the genomic region or gene name
+                    tracks: additionalTracks
+                }).then(function (browser) {
+                    console.log("IGV browser initialized:", browser);
+                    // Save the browser object for future use
+                    igvBrowser = browser;
+                    additionalTracksLoaded = true;
+                });
+            }
+        });
+
+        var dataTable;
+
+        function drawPieChart(data) {
+            console.log("Function drawPieChart() called.");
+            console.log("Received pie chart data:", data);
+            if (!data || data.length === 0 || data[0][0] === "No data found") {
+                document.getElementById('PieChart').innerHTML = 'No data available';
+                return;
+            }
+            
+            google.charts.load('current', {'packages':['corechart']});
+            google.charts.setOnLoadCallback(function(){
+                var chartData = new google.visualization.DataTable();
+                chartData.addColumn('string', 'Type');
+                chartData.addColumn('number', 'Counts');
+                for (var i = 0; i < data.length; i++) {
+                    chartData.addRow([data[i][0], data[i][1]]);
+                }
+                var options = {
+                    title: 'Pie Chart of CREs linked to gene ' + $("#gene_name").val(),
+                    legend: { position: 'right' },
+                    is3D: true,
+                    width: '900px', // Set the width to 100% of the container
+                    height: '500px' // Set the height to your desired value
+                };
+                var chartTitle;
+                var geneName = $("#gene_name").val();
+                var chromosome = $("#chromosome").val();
+                var start = $("#start").val();
+                var end = $("#end").val();
+        
+                if (geneName) {
+                    chartTitle = "Pie Chart of CREs linked to " + geneName;
+                } else if (chromosome && start && end) {
+                    chartTitle = "Pie Chart of CREs present in the region " + chromosome + " : " + start + " - " + end;
+                } else if (chromosome) {
+                    chartTitle = "Pie Chart of CREs present in " + chromosome;
+                } else {
+                    chartTitle = "Pie Chart";
+                }
+                options.title = chartTitle;
+                
+                var chart = new google.visualization.PieChart(document.getElementById('PieChart'));
+                chart.draw(chartData, options);
+            });
+        }
+
+        function drawTable(data) {
+            console.log("Received table data:", data);
+            var geneName = $("#gene_name").val();
+            var chromosome = $("#chromosome").val();
+            var tableHtml = '';
+            var start = $("#start").val();
+            var end = $("#end").val();
+            
+            if (data.length === 1 && data[0][0] === "No data found") {
+                tableHtml = '<h3>No data available</h3>';
+            } else {
+            
+                tableHtml = '<h3>Table of CREs';
+                // Check if both gene name and chromosome are entered
+                if (geneName && chromosome && start && end) {
+                    tableHtml += ' linked to ' + geneName + ' and ' + chromosome + ' : ' + start + ' - ' + end;
+                } else if (chromosome && start && end) {
+                    tableHtml += ' linked to ' + chromosome + ' : ' + start + ' - ' + end;
+                } else if (chromosome && geneName) {
+                    tableHtml += ' linked to ' + geneName + ' and ' + chromosome;
+                } else if (geneName && start && end) {
+                    tableHtml += ' linked to ' + geneName + ' : ' + start + ' - ' + end;
+                } else if (geneName) {
+                    tableHtml += ' linked to ' + geneName;
+                } else if (chromosome) {
+                    tableHtml += ' linked to ' + chromosome;
+                } 
+                
+                tableHtml += '</h3>';
+                tableHtml += '<table id="dataTable" class="display"><thead><tr><th>Chr</th><th>Start</th><th>End</th><th>Peak Score</th><th>Annotation</th><th>Detailed Annotation</th><th>Distance to TSS</th><th>Nearest PromoterID</th><th>Entrez ID</th><th>Gene Name</th><th>Gene Type</th></tr></thead><tbody>';
+                for (var i = 0; i < data.length; i++) {
+                    tableHtml += '<tr><td>' + data[i][0] + '</td><td>' + data[i][1] + '</td><td>' + data[i][2] + '</td><td>' + data[i][3] + '</td><td>' + data[i][4] + '</td><td>' + data[i][5] + '</td><td>' + data[i][6] + '</td><td>' + data[i][7] + '</td><td>' + data[i][8] + '</td><td>' + data[i][9] + '</td><td>' + data[i][10] + '</td></tr>';
+                }
+                tableHtml += '</tbody></table>';
+            }
+                $('#PieTable').html(tableHtml);
+    
+            // Initialize DataTable
+            if (data.length > 0) {
+                dataTable = $('#dataTable').DataTable();
+                }
+            }
+
+        // AJAX request for pie chart data
+        $("#PlotBtn").click(function(){
+            var gene_name = $("#gene_name").val();
+            var chromosome = $("#chromosome").val();
+            var start = $("#start").val();
+            var end = $("#end").val();
+            
+            // Check if any of the required fields is empty
+            if (!gene_name && !chromosome ) {
+                alert("Please provide either a gene name or a chromosome number.");
+                return; // Exit the function
+            }
+
+            if (gene_name) {
+                $.ajax({
+                    type: "POST",
+                    url: "https://bioed.bu.edu/cgi-bin/students_24/Team_10/ATAC_AJAX.py",
+                    data: { gene_name: gene_name, chromosome: chromosome, selector: "Pie" , start: start, end: end },
+                    success: function(data){
+                        if (data.error) {
+                            $("#PieChart").html("There was no CRE associated with the gene " + gene_name);
+                        } else {
+                            drawPieChart(data);
+                        }
+                    },
+                    error: function(){
+                        alert("Error in AJAX request for pie chart data.");
+                    }
+                });
+            } else if (chromosome) {
+                $.ajax({
+                    type: "POST",
+                    url: "https://bioed.bu.edu/cgi-bin/students_24/Team_10/ATAC_AJAX.py",
+                    data: { gene_name: gene_name, chromosome: chromosome, selector: "Pie", start: start, end: end },
+                    success: function(data){
+                        if (data.error) {
+                            $("#PieChart").html("There was no data available for the selected chromosome.");
+                        } else {
+                            drawPieChart(data);
+                        }
+                    },
+                    error: function(){
+                        alert("Error in AJAX request for pie chart data.");
+                    }
+                });
+            }
+        });
+
+        // AJAX request for table data
+        $("#LoadTableBtn").click(function(){
+            var gene_name = $("#gene_name").val();
+            var chromosome = $("#chromosome").val();
+            var start = $("#start").val();
+            var end = $("#end").val();
+            
+            if (!gene_name && !chromosome ) {
+                alert("Please provide either a gene name or a chromosome number.");
+                return; // Exit the function
+            }
+
+            if (gene_name) {
+                $.ajax({
+                    type: "POST",
+                    url: "https://bioed.bu.edu/cgi-bin/students_24/Team_10/ATAC_AJAX.py",
+                    data: { gene_name: gene_name, chromosome: chromosome, selector: "Table", start: start, end: end },
+                    success: function(data){
+                        if (data.error) {
+                            $("#PieTable").html("There was no CRE associated with the gene " + gene_name);
+                        } else {
+                            drawTable(data);
+                        }
+                    },
+                    error: function(){
+                        alert("Error in AJAX request for table data.");
+                    }
+                });
+            } else if (chromosome) {
+                $.ajax({
+                    type: "POST",
+                    url: "https://bioed.bu.edu/cgi-bin/students_24/Team_10/ATAC_AJAX.py",
+                    data: { gene_name: gene_name, chromosome: chromosome, selector: "Table", start: start, end: end },
+                    success: function(data){
+                        console.log("Data got back:", data);
+                        if (data.error) {
+                            $("#PieTable").html("There was no data available for the selected chromosome.");
+                        } else {
+                            drawTable(data);
+                        }
+                    },
+                    error: function(){
+                        alert("Error in AJAX request for table data.");
+                    }
+                });
+            }
+        });
+        
+        // Event listener for download TXT button
+        $("#DownloadTxtBtn").click(function() {
+            var gene_name = $("#gene_name").val();
+            var chromosome = $("#chromosome").val();
+            var start = $("#start").val();
+            var end = $("#end").val();
+        
+            // Check if neither gene name nor chromosome is entered
+            if (!gene_name && !chromosome) {
+                alert("Please provide either a gene name or a chromosome number.");
+                return; // Exit the function
+            }
+            
+            // AJAX request for downloading TXT
+            $.ajax({
+                type: "POST",
+                url: "https://bioed.bu.edu/cgi-bin/students_24/Team_10/ATAC_AJAX.py",
+                data: { 
+                  selector: "Download",
+                  gene_name: $("#gene_name").val(),
+                  chromosome: $("#chromosome").val(),
+                  start: $("#start").val(),
+                  end: $("#end").val()
+              },
+                success: function(data){
+                    // Create a temporary link element
+                    var link = document.createElement("a");
+                    // Set the href attribute to the file content
+                    link.href = "data:text/plain;charset=utf-8," + encodeURIComponent(data);
+                    // Set the download attribute to specify the filename
+                    link.download = "table_data.txt";
+                    // Trigger the click event to initiate the download
+                    link.click();
+                },
+                error: function(){
+                    alert("Error in AJAX request for downloading TXT.");
+                }
+            });
+        });
+    });
+    </script>
+</body>
+</html>
